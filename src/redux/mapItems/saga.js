@@ -15,13 +15,11 @@ function* getNearByHospitals() {
   const currLongitude = yield select(longitude);
   const currLatitude = yield select(latitude);
   const currRadius = yield select(radius);
-  console.log('current', currLatitude, currLongitude, currRadius);
 
   try {
     const response = yield axios.get(
       `${PLACES_BASE_URL}${currLatitude},${currLongitude}&radius=${currRadius}&type=hospital&key=${GOOGLE_API_KEY}`
     );
-    console.log('response', response.data);
     yield put({
       payload: response.data.results,
       type: GET_NEARBY_HOSPITALS_SUCCESS,
